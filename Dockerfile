@@ -12,6 +12,6 @@ RUN upx --lzma /build/wschat
 
 FROM alpine:latest
 COPY --from=build /build /app
-EXPOSE 16745
+EXPOSE 54791
 WORKDIR /app
 CMD /app/wschat

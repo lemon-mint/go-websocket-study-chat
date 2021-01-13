@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>go-websocket-study-chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.0.5/dist/vue.global.js"></script>
+    <style>
+        .stick-to-b {
+            position: sticky;
+            bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="chatmsg">
+        <li v-for="msg in msgs">
+            {{ msg.ts }} : {{ msg.body }}
+        </li>
+    </ul>
+    <script src="/static/chat.js"></script>
+    <div class="stick-to-b">
+        <input type="text" id="newmsg"><button id="sendbtn">send</button>
+    </div>
+    <script>
+        let btn = document.getElementById("sendbtn");
+        const send = ()=>{
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET","/chat/send?data="+encodeURIComponent(document.getElementById("newmsg").value));
+            xhr.send();
+            document.getElementById("newmsg").value = "";
+        };
+        btn.onclick = send;
+        document.getElementById("newmsg").onkeyup = (e)=>{
+            if (e.keyCode == 13) {
+                send();
+            }
+        };
+    </script>
+</body>
+
+</html>
